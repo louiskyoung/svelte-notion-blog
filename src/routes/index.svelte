@@ -1,2 +1,14 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script scope="module" lang="ts">
+	import type { GETBodyReturnTypes } from './index'
+
+	export let pages: GETBodyReturnTypes['pages']
+</script>
+
+{#each pages as page}
+	<li>
+		<a href="/pages/{page.id}">
+			{page.title}
+		</a>
+		| {page.createdAt}
+	</li>
+{/each}
