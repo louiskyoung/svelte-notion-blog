@@ -17,6 +17,8 @@
 <div>{meta.createdAt}</div>
 <div>
 	{#each blocks as block}
+		<!-- <pre>{JSON.stringify(block)}</pre> -->
+
 		{#if block.type === 'callout'}
 			<div class="callout">
 				{#if block.callout.icon?.type === 'emoji'}
@@ -53,6 +55,15 @@
 				<RichTexts richTexts={block.paragraph.rich_text} />
 			</p>
 		{/if}
+
+		{#if block.type === 'image'}
+			{#if block.image.type === 'file'}
+				<figure>
+					<img src={block.image.file.url} alt="" width="400" />
+					<figcaption>{block.image.caption[0].plain_text}</figcaption>
+				</figure>
+			{/if}
+		{/if}
 	{/each}
 </div>
 
@@ -60,5 +71,12 @@
 	.callout {
 		background: #eee;
 		padding: 1em;
+	}
+	figure {
+		margin: 0;
+	}
+
+	figcaption {
+		opacity: 75%;
 	}
 </style>
