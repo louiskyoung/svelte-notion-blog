@@ -2,6 +2,7 @@
 	import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 	import type { GETBodyReturnTypes } from './[id]'
 	import RichTexts from '../../components/RichTexts.svelte'
+	import { imgProxy } from '../../utils/imgProxy'
 
 	export let blocks: GETBodyReturnTypes['blocks']
 	export let title: GETBodyReturnTypes['title']
@@ -59,8 +60,13 @@
 		{#if block.type === 'image'}
 			{#if block.image.type === 'file'}
 				<figure>
-					<img src={block.image.file.url} alt="" width="400" />
-					<figcaption>{block.image.caption[0].plain_text}</figcaption>
+					<img
+						alt={block.image.caption[0]?.plain_text ?? ''}
+						src={imgProxy(block.image.file.url)}
+					/>
+					{#if block.image.caption[0]?.plain_text}
+						<figcaption>{block.image.caption[0].plain_text}</figcaption>
+					{/if}
 				</figure>
 			{/if}
 		{/if}
