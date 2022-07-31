@@ -17,6 +17,7 @@
 		"@playwright/test": "^1.22.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@types/sharp": "^0.30.4",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"eslint": "^8.16.0",
@@ -31,5 +32,9 @@
 		"typescript": "^4.7.4",
 		"vite": "^3.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"axios": "^0.27.2",
+		"sharp": "^0.30.7"
+	}
 }
