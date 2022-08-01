@@ -85,4 +85,13 @@
 	figcaption {
 		opacity: 75%;
 	}
+
+	figure {
+		text-align: center;
+		max-width: 100%;
+	}
+
+	img {
+		max-width: 100%;
+	}
 </style>
