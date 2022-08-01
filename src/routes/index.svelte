@@ -1,14 +1,16 @@
 <script scope="module" lang="ts">
-	import type { GETBodyReturnTypes } from './index'
-
-	export let pages: GETBodyReturnTypes['pages']
+	import { pages } from '../stores/pages'
 </script>
 
-{#each pages as page}
-	<li>
-		<a href="/pages/{page.id}" sveltekit:prefetch>
-			{page.title}
-		</a>
-		| {page.createdAt}
-	</li>
-{/each}
+{#if $pages.length > 0}
+	{#each $pages as page}
+		<li>
+			<a href="/pages/{page.id}" sveltekit:prefetch>
+				{page.title}
+			</a>
+			| {page.createdAt}
+		</li>
+	{/each}
+{:else}
+	Loading...
+{/if}

@@ -2,7 +2,7 @@ import type {
 	PageObjectResponse,
 	PartialPageObjectResponse,
 } from '@notionhq/client/build/src/api-endpoints'
-import * as notion from '../notion/api'
+import * as notion from '../../notion/api'
 
 export type GETBodyReturnTypes = Awaited<ReturnType<typeof GET>>['body']
 

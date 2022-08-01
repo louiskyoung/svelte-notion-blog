@@ -1,3 +1,12 @@
+<script scope="module" lang="ts">
+	import { page } from '$app/stores'
+	import { pages } from '../stores/pages'
+
+	fetch(`${$page.url.origin}/api/pages`)
+		.then((res) => res.json())
+		.then((res) => ($pages = res.pages))
+</script>
+
 <div class="container">
 	<div class="row">
 		<slot />
