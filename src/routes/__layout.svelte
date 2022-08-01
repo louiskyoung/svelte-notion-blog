@@ -12,12 +12,14 @@
 	.container {
 		display: flex;
 		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 1em;
 	}
 	.row {
-		width: 900px;
+		width: 500px;
 		background: white;
-		padding: 0 1em 1em;
-		margin: 1em 0;
+		padding: 1em;
 		border-radius: 10px;
 		box-shadow: 0 0 10px #00000011;
 	}
