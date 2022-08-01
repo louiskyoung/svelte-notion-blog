@@ -70,6 +70,25 @@
 				</figure>
 			{/if}
 		{/if}
+
+		{#if block.type === 'code'}
+			<figure>
+				<div class="code">
+					<div class="language">
+						{block.code.language}
+					</div>
+					<code>
+						<RichTexts richTexts={block.code.rich_text} />
+					</code>
+				</div>
+
+				{#if block.code.caption[0]?.plain_text}
+					<figcaption>
+						{block.code.caption[0].plain_text}
+					</figcaption>
+				{/if}
+			</figure>
+		{/if}
 	{/each}
 </div>
 
@@ -84,14 +103,35 @@
 
 	figcaption {
 		opacity: 75%;
+		text-align: center;
 	}
 
 	figure {
-		text-align: center;
 		max-width: 100%;
 	}
 
 	img {
 		max-width: 100%;
+	}
+
+	.code {
+		background: #00000010;
+		padding: 1em;
+		position: relative;
+		border-radius: 10px;
+	}
+	.code .language {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		font-family: monospace;
+		color: #000000a4;
+		font-size: smaller;
+	}
+
+	.code code {
+		font-family: monospace;
+		font-size: small;
+		white-space: pre;
 	}
 </style>
