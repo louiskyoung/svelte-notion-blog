@@ -23,7 +23,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		margin-top: 1em;
+		margin: 1em 0;
 	}
 	.row {
 		width: 500px;
