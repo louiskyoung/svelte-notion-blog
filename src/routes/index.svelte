@@ -6,7 +6,7 @@
 
 {#each pages as page}
 	<li>
-		<a href="/pages/{page.id}">
+		<a href="/pages/{page.id}" sveltekit:prefetch>
 			{page.title}
 		</a>
 		| {page.createdAt}
