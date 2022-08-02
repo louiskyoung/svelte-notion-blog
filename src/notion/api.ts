@@ -40,15 +40,17 @@ export const getPageTitle = async (page_id: string) => {
 	return (titleProperties.results[0] as TitlePropertyItemObjectResponse).title.plain_text
 }
 
-export async function getPageBlocks(block_id: GetBlockParameters['block_id']) {
+export async function getPage(pageId: GetPageParameters['page_id']) {
+	const response = await client.pages.retrieve({ page_id: pageId })
+	return response
+}
+
+// BLOCK ---------
+
+export async function getBlockChildren(block_id: GetBlockParameters['block_id']) {
 	const response = await client.blocks.children.list({
 		block_id,
 		page_size: 50,
 	})
-	return response
-}
-
-export async function getPage(pageId: GetPageParameters['page_id']) {
-	const response = await client.pages.retrieve({ page_id: pageId })
 	return response
 }

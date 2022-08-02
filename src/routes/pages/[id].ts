@@ -11,7 +11,7 @@ export type GETBodyReturnTypes = Awaited<ReturnType<typeof GET>>['body']
 export async function GET(props: Page) {
 	const { id } = props.params
 
-	const { results: blocks } = await notion.getPageBlocks(id)
+	const { results: blocks } = await notion.getBlockChildren(id)
 
 	const pageObjectResponse = (await notion.getPage(id)) as PageObjectResponse
 	const meta = {
