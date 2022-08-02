@@ -46,6 +46,24 @@
 	</h2>
 {/if}
 
+{#if block.type === 'heading_2' && block.heading_2}
+	<h3>
+		<RichTexts richTexts={block.heading_2.rich_text} />
+	</h3>
+{/if}
+
+{#if block.type === 'heading_3' && block.heading_3}
+	<h4>
+		<RichTexts richTexts={block.heading_3.rich_text} />
+	</h4>
+{/if}
+
+{#if block.type === 'bulleted_list_item' && block.bulleted_list_item}
+	<li>
+		<RichTexts richTexts={block.bulleted_list_item.rich_text} />
+	</li>
+{/if}
+
 {#if block.type === 'numbered_list_item' && block.numbered_list_item}
 	{#if isFirstNumberedListItem(block)}
 		<li type="1" value="1">
