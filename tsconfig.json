@@ -13,5 +13,6 @@
 	"exclude": [
 
 		"./.history",
+		"./.svelte-kit/generated",
 	]
 }
