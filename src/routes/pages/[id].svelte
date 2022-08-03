@@ -7,11 +7,22 @@
 	export let meta: GETBodyReturnTypes['meta']
 </script>
 
-<h1>{title}</h1>
-<div>{meta.createdAt}</div>
+<h1>
+	<div>{title}</div>
+	<div class="meta">{meta.createdAt}</div>
+</h1>
 
 <div>
 	{#each blocks as block}
 		<Block {block} {blocks} />
 	{/each}
 </div>
+
+<style>
+	.meta {
+		margin-bottom: 1em;
+		font-size: 1rem;
+		font-weight: normal;
+		opacity: 0.5;
+	}
+</style>
