@@ -56,35 +56,29 @@ export async function getBlockChildren(block_id: GetBlockParameters['block_id'])
 	return response
 }
 
-export const getBlocksWithResolvedDescendants = async (
-	blocks: BlockObjectResponse[],
-	terse = true
-) => {
-	const input = terse ? makeTerse(blocks) : blocks
+type GetBlocksWithResolvedDescendants = (
+	blocks: BlockObjectResponse[]
+) => Promise<BlockObjectResponseWithChildren[]>
 
-	const promises: Promise<Partial<BlockObjectResponse>>[] = input.map(async (block) => {
+export type BlockObjectResponseWithChildren = BlockObjectResponse & Children
+type Children = { children?: BlockObjectResponseWithChildren[] }
+
+type InnerPromises = Promise<BlockObjectResponseWithChildren>[]
+
+export const getBlocksWithResolvedDescendants: GetBlocksWithResolvedDescendants = async (
+	blocks
+) => {
+	const promises: InnerPromises = blocks.map(async (block) => {
 		if (!block.has_children) return block
+
 		const children = await getBlockChildren(block.id)
 		const results = children.results as BlockObjectResponse[]
-		return { ...block, [block.type]: await getBlocksWithResolvedDescendants(results) }
+
+		return {
+			...block,
+			children: await getBlocksWithResolvedDescendants(results),
+		}
 	})
 
 	return Promise.all(promises)
 }
-
-const makeTerse = (blocks: BlockObjectResponse[]) =>
-	blocks
-		.map(
-			({
-				/* eslint-disable @typescript-eslint/no-unused-vars*/
-				parent,
-				last_edited_time,
-				last_edited_by,
-				archived,
-				created_time,
-				created_by,
-				/* eslint-enable @typescript-eslint/no-unused-vars*/
-				...rest
-			}) => ({ ...rest, has_children: rest.has_children || undefined })
-		)
-		.filter((e) => e)

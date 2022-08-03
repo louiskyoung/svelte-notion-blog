@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { NumberedListItemBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+	import type { BlockObjectResponseWithChildren } from 'src/notion/api'
 
-	import type { GETBodyReturnTypes } from 'src/routes/pages/[id]'
 	import { imgProxy } from '../utils/imgProxy'
 	import Block from './Block.svelte'
 	import RichTexts from './RichTexts.svelte'
 
-	export let blocks: GETBodyReturnTypes['blocks']
-	export let block: GETBodyReturnTypes['blocks'][0]
+	export let block: BlockObjectResponseWithChildren
+	export let blocks: typeof block[]
 
 	const isFirstNumberedListItem = (block: Partial<NumberedListItemBlockObjectResponse>) => {
 		const index = blocks.findIndex((b) => b.id === block.id)
@@ -15,14 +15,30 @@
 	}
 </script>
 
-{#if block.type === 'column_list' && Array.isArray(block.column_list)}
+{#if block.type === 'toggle' && Array.isArray(block.children)}
+	<details>
+		<summary>
+			<RichTexts richTexts={block.toggle.rich_text} />
+		</summary>
+
+		<div class="content">
+			{#each block.children as content}
+				<Block block={content} blocks={block.children} />
+			{/each}
+		</div>
+	</details>
+{/if}
+
+{#if block.type === 'column_list' && Array.isArray(block.children)}
 	<div class="columns">
-		{#each block.column_list as column}
-			<div class="column">
-				{#each column.column as content}
-					<Block block={content} blocks={column.column} />
-				{/each}
-			</div>
+		{#each block.children as column}
+			{#if column.children}
+				<div class="column">
+					{#each column.children as content}
+						<Block block={content} blocks={column.children} />
+					{/each}
+				</div>
+			{/if}
 		{/each}
 	</div>
 {/if}
@@ -113,6 +129,20 @@
 {/if}
 
 <style>
+	details {
+		padding: 0;
+	}
+
+	details .content {
+		padding: 0 0.75em;
+		margin-left: 0.3em;
+		border-left: 1px solid #00000030;
+	}
+
+	details .content > :global(*) {
+		margin: 0.5em 0;
+	}
+
 	.callout {
 		background: #eee;
 		padding: 1em;
