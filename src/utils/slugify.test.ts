@@ -19,7 +19,7 @@ describe.concurrent('slugify(string)', () => {
 			'. Que de fois ne désira-t-il pas voir survenir à Mme de Rênal quelque affaire qui l’obligeât de rentrer à la maison et de quitter le jardin !'
 		)
 		const expected =
-			'que-de-fois-ne-desira-t-il-pas-voir-survenir-a-mme-de-renal-quelque-affaire-qui-lobligeat-de-rentrer-a-la-maison-et-de-quitter-le-jardin'
+			'que-de-fois-ne-desira-t-il-pas-voir-survenir-a-mme-de-renal-quelque-affaire-qui-l-obligeat-de-rentrer-a-la-maison-et-de-quitter-le-jardin'
 		expect(expected).toEqual(actual)
 	})
 })

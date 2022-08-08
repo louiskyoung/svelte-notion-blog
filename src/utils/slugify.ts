@@ -10,6 +10,7 @@ export function slugify(string: string) {
 		.replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
 		.replace('æ', 'ae') // Replaces ligatures
 		.replace('œ', 'oe') // Replaces ligatures
+		.replace(/’/, '-')
 		.replace(/&/g, '-and-') // Replace & with 'and'
 		.replace(/[^\w-]+/g, '') // Remove all non-word characters
 		.replace(/--+/g, '-') // Replace multiple - with single -
