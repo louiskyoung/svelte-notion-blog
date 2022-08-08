@@ -1,12 +1,12 @@
 <script scope="module" lang="ts">
-	import type { GETBodyReturnTypes } from './[id]'
+	import type { GETBodyReturnTypes } from './[slug]'
 
 	import Block from '../../components/Block.svelte'
 	import { format } from '../../utils/date'
 
-	export let blocks: GETBodyReturnTypes['blocks']
-	export let title: GETBodyReturnTypes['title']
-	export let meta: GETBodyReturnTypes['meta']
+	export let blocks: Exclude<GETBodyReturnTypes, Error>['blocks']
+	export let title: Exclude<GETBodyReturnTypes, Error>['title']
+	export let meta: Exclude<GETBodyReturnTypes, Error>['meta']
 
 	const createdAt = meta.createdAt ? format(meta.createdAt) : undefined
 </script>

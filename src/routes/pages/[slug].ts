@@ -8,12 +8,17 @@ import type {
 import type { Page } from '@sveltejs/kit/types/internal'
 import type { BlockObjectResponseWithChildren } from '../../notion/api'
 import * as notion from '../../notion/api'
+import * as pagesStore from '../../stores/pages'
 
 export type GETBodyReturnTypes = Awaited<ReturnType<typeof GET>>['body']
 
 export async function GET(props: Page) {
-	const { id } = props.params
+	const { slug } = props.params
 
+	const foundPage = pagesStore.findBySlug(slug)
+	if (!foundPage) return { status: 404, body: new Error('Page not found') }
+
+	const id = foundPage.id
 	const { results } = await notion.getBlockChildren(id)
 	const blocks = results as BlockObjectResponse[]
 

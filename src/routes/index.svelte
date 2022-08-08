@@ -1,13 +1,14 @@
 <script scope="module" lang="ts">
 	import { pages } from '../stores/pages'
 	import { format } from '../utils/date'
+	import { slugify } from '../utils/slugify'
 </script>
 
 {#if $pages.length > 0}
 	<ul class="pages">
 		{#each $pages as page}
 			<li>
-				<a href="/pages/{page.id}" sveltekit:prefetch>
+				<a href="/pages/{slugify(page.title)}" sveltekit:prefetch>
 					{page.title}
 				</a>
 				<div class="createdAt">{format(page.createdAt)}</div>
